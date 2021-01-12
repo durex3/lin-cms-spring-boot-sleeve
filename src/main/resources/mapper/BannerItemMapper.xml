@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.talelin.latticy.mapper.BannerItemMapper">
+    <resultMap id="BaseResultMap" type="io.github.talelin.latticy.model.BannerItemDO">
+        <!--@mbg.generated-->
+        <!--@Table banner_item-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
+        <result column="type" jdbcType="SMALLINT" property="type"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime"/>
+        <result column="banner_id" jdbcType="INTEGER" property="bannerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, img, keyword, `type`, create_time, update_time, delete_time, banner_id, `name`
+    </sql>
+</mapper>

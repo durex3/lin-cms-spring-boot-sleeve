@@ -1,13 +1,13 @@
 package io.github.talelin.latticy.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.github.talelin.latticy.model.BannerDO;
+import io.github.talelin.latticy.model.BannerItemDO;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author gelong
- * @date 2020/12/27 21:00
+ * @date 2021/1/11 20:57
  */
 @Repository
-public interface BannerMapper extends BaseMapper<BannerDO> {
+public interface BannerItemMapper extends BaseMapper<BannerItemDO> {
 }

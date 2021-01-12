@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.latticy.bo.BannerWithItemsBO;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.banner.BannerDTO;
 import io.github.talelin.latticy.model.BannerDO;
@@ -64,7 +65,7 @@ public class BannerController {
     @ApiOperation(value = "更新banner")
     @PutMapping(value = "/{id}")
     public UpdatedVO<Object> update(@PathVariable(value = "id") @Positive Long id,
-                       @RequestBody @Validated BannerDTO bannerDTO) {
+                                    @RequestBody @Validated BannerDTO bannerDTO) {
         bannerService.updateById(id, bannerDTO);
         return new UpdatedVO<>();
     }
@@ -74,5 +75,11 @@ public class BannerController {
     public DeletedVO<Object> delete(@PathVariable(value = "id") @Positive Long id) {
         bannerService.deleteById(id);
         return new DeletedVO<>();
+    }
+
+    @ApiOperation(value = "查询banner以及items")
+    @GetMapping(value = "/{id}")
+    public BannerWithItemsBO getWithItems(@PathVariable(value = "id") @Positive Long id) {
+        return bannerService.getWithItems(id);
     }
 }

@@ -1,15 +1,20 @@
 package io.github.talelin.latticy.service.impl;
 
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
+import io.github.talelin.latticy.bo.BannerWithItemsBO;
 import io.github.talelin.latticy.dto.banner.BannerDTO;
+import io.github.talelin.latticy.mapper.BannerItemMapper;
 import io.github.talelin.latticy.mapper.BannerMapper;
 import io.github.talelin.latticy.model.BannerDO;
+import io.github.talelin.latticy.model.BannerItemDO;
 import io.github.talelin.latticy.service.BannerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author gelong
@@ -21,6 +26,8 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
 
     @Resource
     private BannerMapper bannerMapper;
+    @Resource
+    private BannerItemMapper bannerItemMapper;
 
     @Override
     public void updateById(Long id, BannerDTO bannerDTO) {
@@ -39,5 +46,17 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
             throw new NotFoundException(20000);
         }
         bannerMapper.deleteById(id);
+    }
+
+    @Override
+    public BannerWithItemsBO getWithItems(Long id) {
+        BannerDO bannerDO = bannerMapper.selectById(id);
+        if (bannerDO == null) {
+            throw new NotFoundException(20000);
+        }
+        List<BannerItemDO> bannerItems = new LambdaQueryChainWrapper<>(bannerItemMapper)
+                .eq(BannerItemDO::getBannerId, id)
+                .list();
+        return new BannerWithItemsBO(bannerDO, bannerItems);
     }
 }
