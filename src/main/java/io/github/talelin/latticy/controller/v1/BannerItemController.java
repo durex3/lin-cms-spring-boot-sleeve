@@ -51,7 +51,7 @@ public class BannerItemController {
     @PermissionMeta(value = "创建banner_item")
     @GroupRequired
     @PostMapping
-    public CreatedVO<BannerItemDTO> create(@RequestBody @Validated BannerItemDTO bannerItemDTO) {
+    public CreatedVO<BannerItemDO> create(@RequestBody @Validated BannerItemDTO bannerItemDTO) {
         BannerItemDO bannerItemDO = new BannerItemDO();
         BeanUtils.copyProperties(bannerItemDTO, bannerItemDO);
         bannerItemService.save(bannerItemDO);
@@ -62,7 +62,7 @@ public class BannerItemController {
     @PermissionMeta(value = "更新banner_item")
     @GroupRequired
     @PutMapping("/{id}")
-    public UpdatedVO<BannerItemDTO> update(@PathVariable @Positive(message = "{id.positive}") Long id,
+    public UpdatedVO<BannerItemDO> update(@PathVariable @Positive(message = "{id.positive}") Long id,
                                            @RequestBody @Validated BannerItemDTO bannerItemDTO) {
         bannerItemService.updateById(id, bannerItemDTO);
         return new UpdatedVO<>();
@@ -72,7 +72,7 @@ public class BannerItemController {
     @PermissionMeta(value = "删除banner_item")
     @GroupRequired
     @DeleteMapping("/{id}")
-    public DeletedVO<BannerItemDTO> delete(@PathVariable @Positive(message = "{id.positive}") Long id) {
+    public DeletedVO<BannerItemDO> delete(@PathVariable @Positive(message = "{id.positive}") Long id) {
         bannerItemService.deleteById(id);
         return new DeletedVO<>();
     }
