@@ -1,6 +1,9 @@
 package io.github.talelin.latticy.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.latticy.bo.BannerWithItemsBO;
@@ -46,6 +49,9 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
             throw new NotFoundException(20000);
         }
         bannerMapper.deleteById(id);
+        new LambdaUpdateChainWrapper<>(bannerItemMapper)
+                .eq(BannerItemDO::getBannerId, id)
+                .remove();
     }
 
     @Override
